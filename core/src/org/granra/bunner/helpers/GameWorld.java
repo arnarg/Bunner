@@ -1,5 +1,8 @@
 package org.granra.bunner.helpers;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+
 import org.granra.bunner.entities.Player;
 import org.granra.bunner.main.Bunner;
 
@@ -12,8 +15,7 @@ public class GameWorld {
 
     public GameWorld() {
 
-        player = new Player(Bunner.CAMERA_WIDTH / 4, Bunner.CAMERA_HEIGHT - 64,
-                32, 32);
+        player = new Player(Bunner.CAMERA_WIDTH / 4, 32, 32, 32);
 
     }
 
@@ -25,7 +27,12 @@ public class GameWorld {
 
     }
 
-    private void handleInput() {}
+    private void handleInput() {
+
+        if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+            player.jump();
+
+    }
 
     public Player getPlayer() { return player; }
 

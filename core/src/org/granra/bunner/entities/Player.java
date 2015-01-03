@@ -1,5 +1,6 @@
 package org.granra.bunner.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -36,7 +37,7 @@ public class Player {
 
         if (onGround()) {
 
-            position.y = 64;
+            position.y = 32;
             acceleration.y = 0;
             velocity.y = 0;
             nrOfJumps = 0;
@@ -47,10 +48,11 @@ public class Player {
 
     public void jump() {
 
-        if (nrOfJumps++ < 2) {
+        if (nrOfJumps < 2) {
 
-            acceleration.y = 1500;
-            velocity.y = -530;
+            nrOfJumps++;
+            acceleration.y = -1500;
+            velocity.y = 530;
 
         }
 
@@ -61,6 +63,6 @@ public class Player {
     public float getWidth() { return width; }
     public float getHeight() { return height; }
 
-    public boolean onGround() { return position.y <= 64; }
+    public boolean onGround() { return position.y <= 32; }
 
 }

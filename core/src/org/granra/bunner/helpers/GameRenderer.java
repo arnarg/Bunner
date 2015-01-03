@@ -40,6 +40,11 @@ public class GameRenderer {
 
         cam.update();
 
+        batch.begin();
+        batch.draw(AssetLoader.bunnyAnimation.getKeyFrame(runTime),
+                player.getX(), player.getY(), player.getWidth(), player.getHeight());
+        batch.end();
+
     }
 
 }
