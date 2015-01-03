@@ -1,12 +1,9 @@
-package org.granra.bunner;
+package org.granra.bunner.main;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Bunner extends ApplicationAdapter {
+public class Bunner extends Game {
 
     public static final String TITLE = "Bunner";
     public static final float WIDTH = 800, HEIGHT = 480;
