@@ -28,6 +28,39 @@ public class Player {
 
     }
 
-    public void update(float delta) {}
+    public void update(float delta) {
+
+        velocity.add(acceleration.cpy().scl(delta));
+
+        position.add(velocity.cpy().scl(delta));
+
+        if (onGround()) {
+
+            position.y = 64;
+            acceleration.y = 0;
+            velocity.y = 0;
+            nrOfJumps = 0;
+
+        }
+
+    }
+
+    public void jump() {
+
+        if (nrOfJumps++ < 2) {
+
+            acceleration.y = 1500;
+            velocity.y = -530;
+
+        }
+
+    }
+
+    public float getY() { return position.y; }
+    public float getX() { return position.x; }
+    public float getWidth() { return width; }
+    public float getHeight() { return height; }
+
+    public boolean onGround() { return position.y <= 64; }
 
 }
