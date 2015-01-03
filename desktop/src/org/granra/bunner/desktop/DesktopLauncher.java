@@ -7,6 +7,9 @@ import org.granra.bunner.Bunner;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.title = Bunner.TITLE;
+        config.height = (int)Bunner.HEIGHT;
+        config.width = (int)Bunner.WIDTH;
 		new LwjglApplication(new Bunner(), config);
 	}
 }
