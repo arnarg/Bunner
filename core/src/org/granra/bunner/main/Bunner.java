@@ -8,6 +8,8 @@ import org.granra.bunner.screens.GameScreen;
 
 public class Bunner extends Game {
 
+    public static final boolean DEBUG = false;
+
     public static final String TITLE = "Bunner";
     public static final float WIDTH = 800, HEIGHT = 480;
 

@@ -27,10 +27,15 @@ public class MyContactListener implements ContactListener {
         Fixture fa = contact.getFixtureA();
         Fixture fb = contact.getFixtureB();
 
-        if (fa.getUserData() != null && fa.getUserData().equals("player"))
+        if (fa.getUserData() != null && fa.getUserData().equals("foot"))
             world.getPlayer().land();
-        if (fb.getUserData() != null && fb.getUserData().equals("player"))
+        if (fb.getUserData() != null && fb.getUserData().equals("foot"))
             world.getPlayer().land();
+
+        if (fa.getUserData() != null && fa.getUserData().equals("head"))
+            world.screen.state = GameState.GAME_OVER;
+        if (fb.getUserData() != null && fb.getUserData().equals("head"))
+            world.screen.state = GameState.GAME_OVER;
 
     }
 
