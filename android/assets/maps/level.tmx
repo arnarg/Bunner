@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="256" height="8" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Tiles_32x32" tilewidth="32" tileheight="32">
+  <image source="Tiles_32x32.png" width="256" height="256"/>
+ </tileset>
+ <layer name="graphic" width="256" height="8">
+  <data encoding="base64" compression="zlib">
+   eJztmc0KwzAIx7vPw3baBtveZYe9/1stPRSCKFFnoyn+wEsx0Wr/RNJpSkbg7hyH8/xtnIsGbQ7HYiehXQV7nZV5JclMVP1H0LwFtWYvTHsQe30EvknCIar+t8Ki2dRp0uLmELOX/qjznHPOe9QFEiGHZF28e7ymFql3G2HOjjAjWOZwKLZr2B6seRZ7AVt862dfJB5ci/lEx0KbWA3rWnh/Z3V8655x3o1TY8pH0h9pHE1fJPVrfRdYDpw1FJw7QeoOEO7D8dsCPbQZSf8ee//jI8ldGse7LzPaHLCzHtO75l4vsv5b801vg/MUBmcui5CnZ75UfqPVTopW/5yzXvsPz1r/lj38AUNYC7M=
+  </data>
+ </layer>
+ <objectgroup name="ground">
+  <object x="0" y="224" width="1184" height="32"/>
+  <object x="1440" y="224" width="1088" height="32"/>
+  <object x="1184" y="160" width="192" height="32"/>
+  <object x="2560" y="160" width="160" height="32"/>
+  <object x="2848" y="224" width="960" height="32"/>
+  <object x="3968" y="224" width="1088" height="32"/>
+  <object x="5120" y="160" width="160" height="32"/>
+  <object x="5472" y="160" width="192" height="32"/>
+  <object x="5888" y="160" width="192" height="32"/>
+  <object x="6208" y="192" width="160" height="32"/>
+  <object x="6368" y="128" width="320" height="32"/>
+  <object x="6784" y="128" width="352" height="32"/>
+  <object x="7264" y="128" width="160" height="32"/>
+  <object x="7584" y="224" width="608" height="32"/>
+ </objectgroup>
+ <objectgroup name="walls">
+  <object x="1440" y="128" width="32" height="96"/>
+  <object x="640" y="160" width="32" height="64"/>
+  <object x="2464" y="96" width="32" height="128"/>
+  <object x="3200" y="128" width="32" height="96"/>
+  <object x="3392" y="0" width="32" height="160"/>
+  <object x="3488" y="160" width="32" height="64"/>
+  <object x="3776" y="160" width="32" height="64"/>
+  <object x="3968" y="160" width="32" height="64"/>
+  <object x="4224" y="0" width="32" height="128"/>
+  <object x="4320" y="160" width="32" height="64"/>
+  <object x="4416" y="0" width="32" height="128"/>
+  <object x="4608" y="160" width="32" height="64"/>
+  <object x="4704" y="96" width="32" height="128"/>
+  <object x="4608" y="0" width="32" height="64"/>
+  <object x="4704" y="0" width="32" height="32"/>
+  <object x="5760" y="0" width="32" height="32"/>
+  <object x="5760" y="96" width="32" height="160"/>
+  <object x="6208" y="0" width="32" height="64"/>
+  <object x="6208" y="64" width="96" height="32"/>
+  <object x="6304" y="32" width="352" height="32"/>
+  <object x="6368" y="160" width="32" height="32"/>
+  <object x="6816" y="32" width="192" height="32"/>
+  <object x="6816" y="0" width="32" height="32"/>
+ </objectgroup>
+</map>
