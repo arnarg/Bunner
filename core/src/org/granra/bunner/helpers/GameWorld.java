@@ -23,7 +23,7 @@ import org.granra.bunner.screens.GameScreen;
  */
 public class GameWorld {
 
-    GameScreen screen;
+    private GameScreen screen;
 
     private Player player;
     private World world;
@@ -45,12 +45,26 @@ public class GameWorld {
 
         world.step(delta, 2, 2);
 
-        if (player.getBody().getPosition().y < 0f) screen.state = GameState.GAME_OVER;
+        if (screen.getState() == GameState.PLAYING && player.getBody().getPosition().y < 0f)
+            kill();
+        if (screen.getState() == GameState.PLAYING &&
+                player.getBody().getPosition().x * B2DVars.PPM >= levelEnd)
+            screen.setState(GameState.WON);
+
+    }
+
+    public void kill() {
+
+        AssetLoader.death.play(.5f);
+        player.setMaskBits((short)0);
+        screen.setState(GameState.GAME_OVER);
+        player.getBody().setLinearVelocity(new Vector2(0f, -2f));
 
     }
 
     public void reset() {
 
+        player.setMaskBits((short)-1);
         player.getBody().setTransform(Bunner.CAMERA_WIDTH / 4 / B2DVars.PPM,
                 50f / B2DVars.PPM, player.getBody().getAngle());
         player.getBody().setLinearVelocity(new Vector2(2.5f, 0f));
@@ -101,6 +115,7 @@ public class GameWorld {
 
     public Player getPlayer() { return player; }
     public World getWorld() { return world; }
+    public GameScreen getScreen() {return screen; }
 
     public void dispose() {
 

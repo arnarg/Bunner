@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 
 import org.granra.bunner.helpers.AssetLoader;
 import org.granra.bunner.screens.GameScreen;
+import org.granra.bunner.screens.MainMenuScreen;
 
 public class Bunner extends Game {
 
@@ -16,6 +17,9 @@ public class Bunner extends Game {
     public static float CAMERA_HEIGHT;
     public static float CAMERA_WIDTH;
 
+    public GameScreen gameScreen;
+    public MainMenuScreen menuScreen;
+
 	@Override
 	public void create () {
 
@@ -23,7 +27,9 @@ public class Bunner extends Game {
         CAMERA_WIDTH = CAMERA_HEIGHT * ((float)Gdx.graphics.getWidth() / Gdx.graphics.getHeight());
 
         AssetLoader.load();
-        setScreen(new GameScreen());
+        gameScreen = new GameScreen(this);
+        menuScreen = new MainMenuScreen(this);
+        setScreen(menuScreen);
 
 	}
 
@@ -32,6 +38,8 @@ public class Bunner extends Game {
 
         super.dispose();
         AssetLoader.dispose();
+        gameScreen.dispose();
+        menuScreen.dispose();
 
     }
 

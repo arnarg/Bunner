@@ -5,10 +5,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import org.granra.bunner.helpers.AssetLoader;
 import org.granra.bunner.helpers.B2DVars;
 
 /**
@@ -21,6 +23,7 @@ public class Player {
     private FixtureDef fdef;
     private PolygonShape pShape;
     private CircleShape cShape;
+    private Filter filter;
 
     private int width;
     private int height;
@@ -64,7 +67,6 @@ public class Player {
         fdef.shape = cShape;
         fdef.filter.categoryBits = B2DVars.BIT_PLAYER;
         fdef.filter.maskBits = -1;
-        fdef.isSensor = true;
         body.createFixture(fdef).setUserData("head");
 
         // Create foot sensor
@@ -82,10 +84,23 @@ public class Player {
 
         if (nrOfJumps < 2) {
 
+            AssetLoader.jump.play(.5f);
             nrOfJumps++;
             body.setLinearVelocity(2.5f, 6f);
 
         }
+
+    }
+
+    public void setMaskBits(short bits) {
+
+        filter = body.getFixtureList().first().getFilterData();
+        filter.maskBits = bits;
+        body.getFixtureList().first().setFilterData(filter);
+
+        filter = body.getFixtureList().get(1).getFilterData();
+        filter.maskBits = bits;
+        body.getFixtureList().get(1).setFilterData(filter);
 
     }
 

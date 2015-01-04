@@ -33,9 +33,9 @@ public class MyContactListener implements ContactListener {
             world.getPlayer().land();
 
         if (fa.getUserData() != null && fa.getUserData().equals("head"))
-            world.screen.state = GameState.GAME_OVER;
+            world.kill();
         if (fb.getUserData() != null && fb.getUserData().equals("head"))
-            world.screen.state = GameState.GAME_OVER;
+            world.kill();
 
     }
 

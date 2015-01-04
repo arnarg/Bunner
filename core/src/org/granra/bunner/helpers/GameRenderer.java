@@ -24,6 +24,7 @@ public class GameRenderer {
     private Box2DDebugRenderer b2dr;
     private OrthographicCamera cam;
     private OrthographicCamera b2dCam;
+    private OrthographicCamera hudCam;
 
     private TiledMap tileMap;
     private OrthogonalTiledMapRenderer tmr;
@@ -38,6 +39,9 @@ public class GameRenderer {
         this.world = world;
         cam = new OrthographicCamera();
         cam.setToOrtho(false, Bunner.CAMERA_WIDTH, Bunner.CAMERA_HEIGHT);
+
+        hudCam = new OrthographicCamera();
+        hudCam.setToOrtho(false, Bunner.CAMERA_WIDTH, Bunner.CAMERA_HEIGHT);
 
         b2dCam = new OrthographicCamera();
         b2dCam.setToOrtho(false,
@@ -61,10 +65,11 @@ public class GameRenderer {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        cam.position.set(
+        if (screen.getState() != GameState.WON && screen.getState() != GameState.GAME_OVER)
+            cam.position.set(
                 player.getBody().getPosition().x * B2DVars.PPM + Bunner.CAMERA_WIDTH / 4,
                 Bunner.CAMERA_HEIGHT / 2, 0
-        );
+            );
         cam.update();
 
         tmr.setView(cam);
@@ -73,12 +78,36 @@ public class GameRenderer {
         batch.setProjectionMatrix(cam.combined);
 
         batch.begin();
-        batch.draw((screen.state == GameState.READY ? AssetLoader.bunnySprite[0]
+        batch.draw((screen.getState() == GameState.READY ? AssetLoader.bunnySprite[0]
                         : AssetLoader.bunnyAnimation.getKeyFrame(runTime)),
                 player.getBody().getPosition().x * B2DVars.PPM - 16,
                 player.getBody().getPosition().y * B2DVars.PPM - 16,
                 player.getWidth(), player.getHeight());
         batch.end();
+
+        batch.setProjectionMatrix(hudCam.combined);
+
+        if (screen.getState() != GameState.PLAYING) {
+
+            batch.begin();
+            switch (screen.getState()) {
+
+                case READY:
+                    AssetLoader.largeFont.draw(batch, 3 - (int)runTime + "",
+                            Bunner.CAMERA_WIDTH / 2 - 10, Bunner.CAMERA_HEIGHT / 2);
+                    break;
+                case GAME_OVER:
+                    AssetLoader.largeFont.draw(batch, "Try Again?",
+                            Bunner.CAMERA_WIDTH / 2 - 100, Bunner.CAMERA_HEIGHT / 2);
+                    break;
+                case WON:
+                    AssetLoader.largeFont.draw(batch, "You Win!",
+                            Bunner.CAMERA_WIDTH / 2 - 80, Bunner.CAMERA_HEIGHT / 2);
+                    break;
+            }
+            batch.end();
+
+        }
 
         // Draw box2d world
         if (Bunner.DEBUG) b2dr.render(world.getWorld(), b2dCam.combined);

@@ -7,20 +7,26 @@ import com.badlogic.gdx.Screen;
 import org.granra.bunner.helpers.GameRenderer;
 import org.granra.bunner.helpers.GameState;
 import org.granra.bunner.helpers.GameWorld;
+import org.granra.bunner.main.Bunner;
 
 /**
  * Created by arnar on 1/3/15.
  */
 public class GameScreen implements Screen {
 
+    final Bunner game;
+
     private GameWorld world;
     private GameRenderer renderer;
 
     private float runTime;
 
-    public GameState state;
+    private GameState state;
+    private GameState lastState;
 
-    public GameScreen() {
+    public GameScreen(final Bunner game) {
+
+        this.game = game;
 
         runTime = 0;
         state = GameState.READY;
@@ -36,7 +42,7 @@ public class GameScreen implements Screen {
         handleInput();
 
         runTime += delta;
-        if (runTime >= 3) state = GameState.PLAYING;
+        if (state == GameState.READY && runTime >= 3) state = GameState.PLAYING;
         if (state != GameState.READY) world.update(delta);
         renderer.render(runTime);
 
@@ -47,9 +53,6 @@ public class GameScreen implements Screen {
         if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 
             switch (state) {
-
-                case READY:
-                    break;
                 case PLAYING:
                     world.getPlayer().jump();
                     break;
@@ -74,6 +77,9 @@ public class GameScreen implements Screen {
         }
 
     }
+
+    public void setState(GameState state) { this.state = state; }
+    public GameState getState() { return state; }
 
     @Override
     public void show() {
