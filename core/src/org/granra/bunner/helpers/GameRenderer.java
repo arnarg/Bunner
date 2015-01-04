@@ -32,7 +32,8 @@ public class GameRenderer {
         cam.setToOrtho(false, Bunner.CAMERA_WIDTH, Bunner.CAMERA_HEIGHT);
 
         b2dCam = new OrthographicCamera();
-        b2dCam.setToOrtho(false, Bunner.CAMERA_WIDTH, Bunner.CAMERA_HEIGHT);
+        b2dCam.setToOrtho(false,
+                Bunner.CAMERA_WIDTH / B2DVars.PPM, Bunner.CAMERA_HEIGHT / B2DVars.PPM);
         b2dr = new Box2DDebugRenderer();
 
         batch = new SpriteBatch();
@@ -51,7 +52,9 @@ public class GameRenderer {
 
         batch.begin();
         batch.draw(AssetLoader.bunnyAnimation.getKeyFrame(runTime),
-                player.getX(), player.getY(), player.getWidth(), player.getHeight());
+                player.getBody().getPosition().x * B2DVars.PPM - 16,
+                player.getBody().getPosition().y * B2DVars.PPM - 16,
+                player.getWidth(), player.getHeight());
         batch.end();
 
         // Draw box2d world

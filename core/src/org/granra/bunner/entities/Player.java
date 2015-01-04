@@ -8,14 +8,12 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import org.granra.bunner.helpers.B2DVars;
+
 /**
  * Created by arnar on 1/3/15.
  */
 public class Player {
-
-    private Vector2 position;
-    private Vector2 velocity;
-    private Vector2 acceleration;
 
     private Body body;
 
@@ -28,9 +26,6 @@ public class Player {
 
         this.width = width;
         this.height = height;
-        position = new Vector2(x, y);
-        velocity = new Vector2(0, 0);
-        acceleration = new Vector2(0, 0);
 
         createBody(x, y, world);
 
@@ -44,33 +39,16 @@ public class Player {
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
 
-        bdef.position.set(x + (this.width / 2), y + (this.height / 2));
-        bdef.type = BodyDef.BodyType.KinematicBody;
+        bdef.position.set(x / B2DVars.PPM, y / B2DVars.PPM);
+        bdef.type = BodyDef.BodyType.DynamicBody;
         bdef.linearVelocity.set(0f, 0f);
         body = world.createBody(bdef);
 
-        shape.setAsBox(this.width / 2, this.height / 2);
+        shape.setAsBox(this.width / 2 / B2DVars.PPM, this.height / 2 / B2DVars.PPM);
         fdef.shape = shape;
+        fdef.filter.categoryBits = 2;
+        fdef.filter.maskBits = -1;
         body.createFixture(fdef).setUserData("player");
-
-    }
-
-    public void update(float delta) {
-
-        velocity.add(acceleration.cpy().scl(delta));
-
-        position.add(velocity.cpy().scl(delta));
-
-        body.setTransform(position.x + (width / 2), position.y + (height / 2), body.getAngle());
-
-        if (onGround()) {
-
-            position.y = 32;
-            acceleration.y = 0;
-            velocity.y = 0;
-            nrOfJumps = 0;
-
-        }
 
     }
 
@@ -79,18 +57,15 @@ public class Player {
         if (nrOfJumps < 2) {
 
             nrOfJumps++;
-            acceleration.y = -1500;
-            velocity.y = 530;
+            body.setLinearVelocity(0, 6f);
 
         }
 
     }
 
-    public float getY() { return position.y; }
-    public float getX() { return position.x; }
+    public void land() { nrOfJumps = 0; }
     public float getWidth() { return width; }
     public float getHeight() { return height; }
     public Body getBody() { return body; }
-    public boolean onGround() { return position.y <= 32; }
 
 }
