@@ -23,7 +23,9 @@ public class Bunner extends Game {
 	@Override
 	public void create () {
 
+	// The map is 8 tiles high and each tile is 32x32px
         CAMERA_HEIGHT = 8 * 32;
+        // Calculating width from the height relative to the screens aspect ratio
         CAMERA_WIDTH = CAMERA_HEIGHT * ((float)Gdx.graphics.getWidth() / Gdx.graphics.getHeight());
 
         AssetLoader.load();
